@@ -1,0 +1,40 @@
+//===================== MODEL REQUESTS ========================
+e.g. need Method to get X info and Y info about Z
+sample:
+    need method to get how many lines are running between time1 and time2
+
+2D PVector's for conal's line graph.
+
+Single String to print for table data. Or 2d Array of individual table cell's to be printed.
+//=============================================================
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//========================== TO DO's ===========================
+
+
+Take 2 zeros off the time stamps given in the files
+
+Make and Finish Bus Data Structure , begin work on map related data structures and generalization of data queires (e.g. avg delay of all busses)
+
+Slider's
+
+Table's
+
+Line Graph's
+
+Controller sending simple queries between gui and model at request
+//=============================================================
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//============================ BUGS ============================
+
+
+Mouse pressing or dragging in the very first frames of the loading screen sometimes causes a crash,
+will be fixed upon proper implementation of event's with widgets.
+
+
+
+
+//=============================================================
