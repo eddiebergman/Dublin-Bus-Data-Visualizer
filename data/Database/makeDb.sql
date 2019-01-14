@@ -25,97 +25,97 @@ CREATE TABLE busModelJourneys(busId varchar(3),direction boolean,journeyId int);
 .print importing csv files...
 
 .mode csv
-.import 20130101.csv temp
+.import siri.20130101.csv temp
 .print 20130101.csv imported
 
-.import 20130102.csv temp
+.import siri.20130102.csv temp
 .print 20130102.csv imported
 
-.import 20130103.csv temp
+.import siri.20130103.csv temp
 .print 20130103.csv imported
 
-.import 20130104.csv temp
+.import siri.20130104.csv temp
 .print 20130104.csv imported
 
-.import 20130105.csv temp
+.import siri.20130105.csv temp
 .print 20130105.csv imported
 
-.import 20130106.csv temp
+.import siri.20130106.csv temp
 .print 20130106.csv imported
 
-.import 20130107.csv temp
+.import siri.20130107.csv temp
 .print 20130107.csv imported
 
-.import 20130108.csv temp
+.import siri.20130108.csv temp
 .print 20130108.csv imported
 
-.import 20130109.csv temp
+.import siri.20130109.csv temp
 .print 20130109.csv imported
 
-.import 20130110.csv temp
+.import siri.20130110.csv temp
 .print 20130110.csv imported
 
-.import 20130111.csv temp
+.import siri.20130111.csv temp
 .print 20130111.csv imported
 
-.import 20130112.csv temp
+.import siri.20130112.csv temp
 .print 20130112.csv imported
 
-.import 20130113.csv temp
+.import siri.20130113.csv temp
 .print 20130113.csv imported
 
-.import 20130114.csv temp
+.import siri.20130114.csv temp
 .print 20130114.csv imported
 
-.import 20130115.csv temp
+.import siri.20130115.csv temp
 .print 20130115.csv imported
 
-.import 20130116.csv temp
+.import siri.20130116.csv temp
 .print 20130116.csv imported
 
-.import 20130117.csv temp
+.import siri.20130117.csv temp
 .print 20130117.csv imported
 
-.import 20130118.csv temp
+.import siri.20130118.csv temp
 .print 20130118.csv imported
 
-.import 20130119.csv temp
+.import siri.20130119.csv temp
 .print 20130119.csv imported
 
-.import 20130120.csv temp
+.import siri.20130120.csv temp
 .print 20130120.csv imported
 
-.import 20130121.csv temp
+.import siri.20130121.csv temp
 .print 20130121.csv imported
 
-.import 20130122.csv temp
+.import siri.20130122.csv temp
 .print 20130122.csv imported
 
-.import 20130123.csv temp
+.import siri.20130123.csv temp
 .print 20130123.csv imported
 
-.import 20130124.csv temp
+.import siri.20130124.csv temp
 .print 20130124.csv imported
 
-.import 20130125.csv temp
+.import siri.20130125.csv temp
 .print 20130125.csv imported
 
-.import 20130126.csv temp
+.import siri.20130126.csv temp
 .print 20130126.csv imported
 
-.import 20130127.csv temp
+.import siri.20130127.csv temp
 .print 20130127.csv imported
 
-.import 20130128.csv temp
+.import siri.20130128.csv temp
 .print 20130128.csv imported
 
-.import 20130129.csv temp
+.import siri.20130129.csv temp
 .print 20130129.csv imported
 
-.import 20130130.csv temp
+.import siri.20130130.csv temp
 .print 20130130.csv imported
 
-.import 20130131.csv temp
+.import siri.20130131.csv temp
 .print 20130131.csv imported
 
 
@@ -201,10 +201,4 @@ CREATE INDEX Istop_time_mainTable ON mainTable(stopId , time);
 
 .print IjourneyId_time_mainTable...
 CREATE INDEX IjourneyId_time_mainTable ON 
-.print IjourneyId_time_mainTable...
-
-.print vacuuming...
-/*VACUUM;*/
-.print done vacuuming
-
-.print done
+.print IjourneyId_time_mainTable done on mainTable

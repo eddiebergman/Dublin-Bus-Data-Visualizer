@@ -1,6 +1,5 @@
 package project.gui.dataDisplay.RouteExplorer;
 
-import com.sun.prism.paint.Color;
 import processing.core.*;
 import project.gui.dataDisplay.DataDisplayEnum;
 import project.gui.dataDisplay.DataDisplayI;
@@ -21,7 +20,6 @@ public class REClock implements DataDisplayI {
     private static final float ARC_FINAL_ANGLE = PConstants.PI*1.5f;
     private static final float ARC_DEGREES = PConstants.PI/(HOURS_PER_CLOCK/2);
     private static final float ACCEPTABLE_DELAY_RANGE = 0.3f;
-    private static final Color WHITE = new Color(255,255,255,ALPHA_FOR_ARCS);
     private static final int TEXT_PADDING = 30;
     private static final float ROTATIONAL_INCREMENTS_AMOUNT = 90;
     private static final float RADIUS_INCREMENTs_AMOUNT = (ROTATIONAL_INCREMENTS_AMOUNT/4)*3;
@@ -29,6 +27,9 @@ public class REClock implements DataDisplayI {
     private static final DataDisplayEnum TYPE = DataDisplayEnum.DELAY_CLOCK;
 
     //---Variables---
+    //Quick fix to get it to work after a few years
+    private static int WHITE;
+    
     private PGraphics screen;
     private PApplet processing;
     private String label;
@@ -52,8 +53,8 @@ public class REClock implements DataDisplayI {
     private float largestDelay = 1;
     private int[] delayData;
     private int[] legendData;
-    private Color[] delayColours;
-    private Color[] legendColours;
+    private int[] delayColours;
+    private int[] legendColours;
     private int distanceBetweenClocks;
     private PFont arialSmall;
     private PFont arialBold;
@@ -100,6 +101,8 @@ public class REClock implements DataDisplayI {
         this.delayColours = getDelayColours(delayData);
         this.legendData = getLegendData(smallestDelay,largestDelay);
         this.legendColours = getLegendColours(legendData);
+
+        this.WHITE = processing.color(255,255,255,ALPHA_FOR_ARCS);
 
     }
 
@@ -161,16 +164,16 @@ public class REClock implements DataDisplayI {
         screen.ellipse(xClock1,yClock1,currentDiamater,currentDiamater);
         screen.ellipse(xClock2,yClock2,currentDiamater,currentDiamater);
         for(int time = 0; time < 12 ; time++){ //draws the 0am-11:59pm clock
-            Color c = delayColours[time];
-            screen.fill(c.getRed(),c.getGreen(),c.getBlue(),c.getAlpha());
+            int c = delayColours[time];
+            screen.fill(processing.red(c),processing.green(c),processing.blue(c), processing.alpha(c));
             screen.arc(xClock1,yClock1,currentDiamater,currentDiamater,currentArcAngle + time*ARC_DEGREES,currentArcAngle + (time+1)*ARC_DEGREES ,PConstants.PIE);
             screen.fill(STROKE_COLOUR);
             screen.textAlign(PConstants.CENTER);
             screen.text(Integer.toString(time) + "h", xClock1+timeDistance*PApplet.cos(currentArcAngle + time * ARC_DEGREES), yClock1+timeDistance*PApplet.sin(ARC_FINAL_ANGLE + time * ARC_DEGREES));
         }
         for(int time = 12; time < 24 ; time++){ //draws the 12pm-23:59pm clock
-            Color c = delayColours[time];
-            screen.fill(c.getRed(),c.getGreen(),c.getBlue(),c.getAlpha());
+            int c = delayColours[time];
+            screen.fill(processing.red(c),processing.green(c),processing.blue(c), processing.alpha(c));
             screen.arc(xClock2,yClock2,currentDiamater,currentDiamater,currentArcAngle + (time*ARC_DEGREES),currentArcAngle + ((time+1)*ARC_DEGREES),PConstants.PIE );
             screen.fill(STROKE_COLOUR);
             screen.textAlign(PConstants.CENTER);
@@ -182,8 +185,8 @@ public class REClock implements DataDisplayI {
         screen.ellipse(xClock1,yClock1,currentRadius,currentRadius);
         screen.ellipse(xClock2,yClock2,currentRadius,currentRadius);
         if(worstTimeIndex != -1) {
-            Color c = delayColours[worstTimeIndex];
-            screen.fill(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+            int c = delayColours[worstTimeIndex];
+            screen.fill(processing.red(c), processing.green(c), processing.blue(c), processing.alpha(c));
             if (worstTimeIndex < 12) {
                 screen.arc(xClock1, yClock1, currentRadius, currentRadius, currentArcAngle + (worstTimeIndex * ARC_DEGREES), currentArcAngle + ((worstTimeIndex + 1) * ARC_DEGREES), PConstants.PIE);
             } else {
@@ -192,8 +195,8 @@ public class REClock implements DataDisplayI {
         }
 
         if(bestTimeIndex != -1) {
-            Color c = delayColours[bestTimeIndex];
-            screen.fill(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+            int c = delayColours[bestTimeIndex];
+            screen.fill(processing.red(c), processing.green(c), processing.blue(c), processing.alpha(c));
             if (bestTimeIndex < 12) {
                 screen.arc(xClock1, yClock1, currentRadius, currentRadius, currentArcAngle + (bestTimeIndex * ARC_DEGREES), currentArcAngle + ((bestTimeIndex + 1) * ARC_DEGREES), PConstants.PIE);
             } else {
@@ -249,8 +252,8 @@ public class REClock implements DataDisplayI {
      * @param delayData the delayData provided
      * @return Colour[] with mapped values of the colours for each delay
      */
-    private Color[] getDelayColours(int[] delayData){
-        Color[] colours = new Color[delayData.length];
+    private int[] getDelayColours(int[] delayData){
+        int[] colours = new int[delayData.length];
         for(int i = 0 ; i < delayData.length ; i++){
             colours[i] = getDelayColor(delayData[i]);
         }
@@ -262,9 +265,9 @@ public class REClock implements DataDisplayI {
      * @param delay the delay to get a shade of
      * @return Color blue
      */
-    private Color getEarlyShade(int delay){
+    private int getEarlyShade(int delay){
         if(delay == 0){ return WHITE;}
-        return new Color( 0,PApplet.map(delay,smallestDelay*ACCEPTABLE_DELAY_RANGE,smallestDelay,255,50),PApplet.map(delay,smallestDelay*ACCEPTABLE_DELAY_RANGE,smallestDelay,255,50),ALPHA_FOR_ARCS );
+        return processing.color( 0,PApplet.map(delay,smallestDelay*ACCEPTABLE_DELAY_RANGE,smallestDelay,255,50),PApplet.map(delay,smallestDelay*ACCEPTABLE_DELAY_RANGE,smallestDelay,255,50),ALPHA_FOR_ARCS );
     }
 
     /**
@@ -272,9 +275,9 @@ public class REClock implements DataDisplayI {
      * @param delay the delay to get a shade of
      * @return Colour red
      */
-    private Color getLateShade(int delay){
+    private int getLateShade(int delay){
         if(delay == 0){ return WHITE;}
-        return new Color( PApplet.map(delay,largestDelay*ACCEPTABLE_DELAY_RANGE,largestDelay,255,50),0,0,ALPHA_FOR_ARCS );
+        return processing.color( PApplet.map(delay,largestDelay*ACCEPTABLE_DELAY_RANGE,largestDelay,255,50),0,0,ALPHA_FOR_ARCS );
     }
 
     /**
@@ -282,11 +285,11 @@ public class REClock implements DataDisplayI {
      * @param delay the delay to get a shade of
      * @return Colour green
      */
-    private Color getWellTimedShade(int delay){
+    private int getWellTimedShade(int delay){
         if(delay == 0){ return WHITE;}
             return (delay <= largestDelay * ACCEPTABLE_DELAY_RANGE && delay > 0) ?
-                    new Color(0, PApplet.map(delay, 0, largestDelay * ACCEPTABLE_DELAY_RANGE, 255, 100), 0, ALPHA_FOR_ARCS) :
-                    new Color(0, PApplet.map(delay, 0, smallestDelay * ACCEPTABLE_DELAY_RANGE, 255, 100), 0, ALPHA_FOR_ARCS);
+                    processing.color(0, PApplet.map(delay, 0, largestDelay * ACCEPTABLE_DELAY_RANGE, 255, 100), 0, ALPHA_FOR_ARCS) :
+                    processing.color(0, PApplet.map(delay, 0, smallestDelay * ACCEPTABLE_DELAY_RANGE, 255, 100), 0, ALPHA_FOR_ARCS);
     }
 
     /**
@@ -294,7 +297,7 @@ public class REClock implements DataDisplayI {
      * @param delay the delay to get a colour from
      * @return colour corresponding to how late/early it is
      */
-    private Color getDelayColor(int delay){
+    private int getDelayColor(int delay){
         if(delay >= smallestDelay*ACCEPTABLE_DELAY_RANGE && delay <= largestDelay*ACCEPTABLE_DELAY_RANGE){
             return getWellTimedShade(delay);
         }else if(delay <= smallestDelay*ACCEPTABLE_DELAY_RANGE){
@@ -313,9 +316,9 @@ public class REClock implements DataDisplayI {
         screen.textAlign(PConstants.LEFT,PConstants.TOP);
         for(int i = 0 ; i < legendAmountToDraw ; i++){
             screen.stroke(STROKE_COLOUR);
-            Color c = legendColours[i];
+            int c = legendColours[i];
             int delayData = legendData[i];
-            screen.fill(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
+            screen.fill(processing.red(c), processing.green(c), processing.blue(c), processing.alpha(c));
             screen.rect(xClock1 + timeDistance + TEXT_PADDING, yClock1 - currentRadius + i * (diameter * 2 + spacing) / legendAmountToDraw, 15, 15, 4);
             screen.fill(STROKE_COLOUR);
             screen.text(((delayData < 0) ? '-' : ' ') + Integer.toString(Math.abs(delayData / 60)) + "m " +
@@ -328,8 +331,8 @@ public class REClock implements DataDisplayI {
      * @param legendDataPassed the legend data to get colour mappings for
      * @return Colour[] of legend data colour values
      */
-    private Color[] getLegendColours(int[] legendDataPassed){
-        Color[] colours = new Color[legendAmountToDraw];
+    private int[] getLegendColours(int[] legendDataPassed){
+        int[] colours = new int[legendAmountToDraw];
         for(int i = 0 ; i < colours.length ; i++){
             colours[i] = getDelayColor(legendDataPassed[i]);
         }
