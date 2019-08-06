@@ -9,3 +9,15 @@ Now includes a bash script (data/Database/getdata.sh) to download and unzip the 
 ```
 sqlite3 testDatabase.db < makeDb.sql
 ```
+
+## Explorer Page:
+![](images/mainpage.png)
+
+## Delay Page:
+![](images/delaypage.png)
+
+## Stats Page:
+![](images/statspage.png)
+
+## Map page:
+![](images/mappage.png)
