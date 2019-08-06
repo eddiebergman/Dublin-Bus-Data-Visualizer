@@ -200,5 +200,5 @@ CREATE INDEX Istop_time_mainTable ON mainTable(stopId , time);
 .print Istop_time_mainTable done on mainTable 
 
 .print IjourneyId_time_mainTable...
-CREATE INDEX IjourneyId_time_mainTable ON 
-.print IjourneyId_time_mainTable done on mainTable
+CREATE INDEX IjourneyId_time_mainTable ON mainTable(journeyId , time); 
+.print IjourneyId_time_mainTable done 
